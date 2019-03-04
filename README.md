@@ -1,5 +1,5 @@
 # ohlavpn
-Find working VPN proxy in the given county | Hola VPN
+**Find working VPN proxy in the given county | Hola VPN**
 
 Use Hola VPN API to grab a list of fast VPN proxy servers all over the world. Use the IP-API endpoint to check their geolocation and owners.
 
