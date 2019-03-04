@@ -1,6 +1,6 @@
 # ohlavpn
 
-**Find working VPN proxy in the given country**
+**Find working VPN proxy all over the world**
 
 Use Hola VPN API to grab a list of fast VPN proxy servers all over the world. Use the IP-API endpoint to check their geolocation and owners.
 
