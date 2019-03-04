@@ -6,10 +6,12 @@ import (
 	"net/http"
 )
 
-const baseUri = "http://ip-api.com/json"
+const baseURI = "http://ip-api.com/json"
 
-type IPApi struct{}
+// Client is responsible for calling IP-API.
+type Client struct{}
 
+// GeoIPData stores geolocation data.
 type GeoIPData struct {
 	As         string
 	City       string
@@ -20,17 +22,20 @@ type GeoIPData struct {
 	Zip        string
 }
 
+// String method returns string representative of the struct.
 func (g *GeoIPData) String() string {
 	return fmt.Sprintf("%s\t%s\t%s\t%s\t\t%s\t%s\t%s", g.As, g.City, g.Country, g.ISP, g.Org, g.RegionName,
 		g.Zip)
 }
 
-func NewIPApi() *IPApi {
-	return new(IPApi)
+// NewClient creates new instance of the IP-API client.
+func NewClient() *Client {
+	return new(Client)
 }
 
-func (api *IPApi) GeoIP(ip string) (*GeoIPData, error) {
-	response, err := http.Get(baseUri + "/" + ip)
+// GeoIP method returns geolocation data.
+func (c *Client) GeoIP(ip string) (*GeoIPData, error) {
+	response, err := http.Get(baseURI + "/" + ip)
 	if err != nil {
 		return nil, err
 	}

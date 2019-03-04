@@ -11,18 +11,20 @@ import (
 )
 
 const (
-	baseUri = "https://client.hola.org/client_cgi"
+	baseURI = "https://client.hola.org/client_cgi"
 
 	browser = "chrome"
 	extVer  = "1.125.157"
 	rmtVer  = "1.2.676"
 )
 
+// Client is responsible for calling Hola VPN API.
 type Client struct {
 	uuid string
 	key  string
 }
 
+// Tunnels stores information about proxy servers
 type Tunnels struct {
 	Login    string
 	Password string
@@ -30,12 +32,14 @@ type Tunnels struct {
 	Servers []TunnelSettings
 }
 
+// TunnelSettings stores tunnel related settings.
 type TunnelSettings struct {
 	Host  string
 	Port  string
 	Proto string
 }
 
+// String method returns string representative of the struct.
 func (ts *TunnelSettings) String() string {
 	return fmt.Sprintf("%s\t%s:%s", ts.Proto, ts.Host, ts.Port)
 }
@@ -51,14 +55,16 @@ type zGetTunnelsResponse struct {
 	AgentKey string `json:"agent_key"`
 }
 
+// NewClient creates new instance of the VPN client.
 func NewClient() *Client {
 	return &Client{
 		uuid: strings.Replace(uuid.New().String(), "-", "", -1),
 	}
 }
 
+// Initialize method opens new session with the remote API.
 func (c *Client) Initialize() error {
-	response, err := http.PostForm(baseUri+"/background_init", url.Values{
+	response, err := http.PostForm(baseURI+"/background_init", url.Values{
 		"login": []string{"1"},
 		"flags": []string{"0"},
 		"ver":   []string{extVer},
@@ -80,8 +86,9 @@ func (c *Client) Initialize() error {
 	return nil
 }
 
+// FindTunnels method returns available proxy servers.
 func (c *Client) FindTunnels(countryCode string, limit int) (*Tunnels, error) {
-	u := baseUri + "/zgettunnels?" + "uuid=" + c.uuid + "&session_key=" + c.key +
+	u := baseURI + "/zgettunnels?" + "uuid=" + c.uuid + "&session_key=" + c.key +
 		"&country=" + countryCode + "&rmt_ver=" + rmtVer + "&ext_ver=" + extVer + "&browser=" + browser +
 		"&product=cws" + "&lccgi=1" + fmt.Sprintf("&limit=%d", limit)
 	response, err := http.Get(u)
@@ -109,8 +116,8 @@ func (c *Client) FindTunnels(countryCode string, limit int) (*Tunnels, error) {
 			hostname := hostPortSplit[0]
 			port := hostPortSplit[1]
 
-			ipAddress, foundIpAddress := r.IPList[hostname]
-			if !foundIpAddress {
+			ipAddress, foundIPAddress := r.IPList[hostname]
+			if !foundIPAddress {
 				return nil, fmt.Errorf("IP address not found (hostname: %s)", hostname)
 			}
 

@@ -19,7 +19,7 @@ func main() {
 	flag.BoolVar(&geoIP, "g", false, "check GeoIP data")
 	flag.Parse()
 
-	ipApiClient := ipapi.NewIPApi()
+	ipAPIClient := ipapi.NewClient()
 	vpnClient := vpn.NewClient()
 	err := vpnClient.Initialize()
 	if err != nil {
@@ -41,7 +41,7 @@ func main() {
 		fmt.Print(tunnel.String())
 
 		if geoIP {
-			geoIPData, err := ipApiClient.GeoIP(tunnel.Host)
+			geoIPData, err := ipAPIClient.GeoIP(tunnel.Host)
 			if err != nil {
 				fmt.Printf("\terror checking GeoIP data: %v", err)
 			} else {
