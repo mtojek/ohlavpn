@@ -20,7 +20,7 @@ Usage of ohlavpn:
 
 ### First steps
 
-Fetch list of active proxy servers in France:
+Fetch active French proxy servers:
  
 ```
 $ ohlavpn -c fr -l 5 -g
