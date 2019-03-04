@@ -6,7 +6,7 @@ Use Hola VPN API to grab a list of fast VPN proxy servers all over the world. Us
 
 ## Disclaimer
 
-**This code is only for educational purposes. Please do not overuse the Hola VPN infrastructure or avoid Netflix limits.**
+**This project is only for educational purposes. Please do not overuse the Hola VPN infrastructure or avoid Netflix limits.**
 
 ## Getting started
 
