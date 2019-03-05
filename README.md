@@ -27,7 +27,7 @@ Fetch active French proxy servers:
  
 ```
 $ ohlavpn -c fr -l 5 -g
-Login: 339e68ea036644a7987307a4ae965713, Password: 97a5ae965312
+Login: user-uuid-339e68ea036644a7987307a4ae965713, Password: 97a5ae965312
 
 https	158.255.215.125:22222	AS39326 HighSpeed Office Limited	Paris	France	Edis France		EDIS GmbH	Île-de-France	75001
 https	178.32.172.248:22222	AS16276 OVH SAS	Paris	France	OVH ISP		CO LTD MAXSERVER	Île-de-France	75000

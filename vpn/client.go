@@ -101,7 +101,7 @@ func (c *Client) FindTunnels(countryCode string, limit int) (*Tunnels, error) {
 	}
 
 	tunnels := &Tunnels{
-		Login:    c.uuid,
+		Login:    fmt.Sprintf("user-uuid-%s", c.uuid),
 		Password: r.AgentKey,
 		Servers:  []TunnelSettings{},
 	}
