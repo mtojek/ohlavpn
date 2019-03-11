@@ -31,11 +31,9 @@ Fetch active French proxy servers:
  
 ```
 $ ohlavpn -c fr -l 5 -g
-Login: user-uuid-339e68ea036644a7987307a4ae965713, Password: 97a5ae965312
-
-https	158.255.215.125:22222	AS39326 HighSpeed Office Limited	Paris	France	Edis France		EDIS GmbH	Île-de-France	75001
-https	178.32.172.248:22222	AS16276 OVH SAS	Paris	France	OVH ISP		CO LTD MAXSERVER	Île-de-France	75000
-https	193.70.63.13:22222	AS16276 OVH SAS	Gravelines	France	OVH		OVH SAS	Hauts-de-France	59820
-https	51.255.175.61:22222	AS16276 OVH SAS	Strasbourg	France	OVH SAS		OVH	Grand Est	67000
-https	178.32.227.14:22222	AS16276 OVH SAS	Roubaix	France	OVH SAS		CO LTD MAXSERVER	Hauts-de-France	59100
+https://user-uuid-2188652440aa480b9b789bc8ba5a2882:5db3017a5b01@159.203.90.106:22222	AS14061 DigitalOcean, LLC	Clifton	United States	DigitalOcean, LLC		Digital Ocean	New Jersey	07014
+https://user-uuid-2188652440aa480b9b789bc8ba5a2882:5db3017a5b01@184.164.147.6:22222	AS20454 SECURED SERVERS LLC	Tempe	United States	Secured Servers LLC		Secured Servers LLC	Arizona	85281
+https://user-uuid-2188652440aa480b9b789bc8ba5a2882:5db3017a5b01@66.85.140.5:22222	AS20454 SECURED SERVERS LLC	Phoenix	United States	Secured Servers LLC		Dolorem Ipsum, s.r.o	Arizona	85001
+https://user-uuid-2188652440aa480b9b789bc8ba5a2882:5db3017a5b01@184.164.146.16:22222	AS20454 SECURED SERVERS LLC	Tempe	United States	Secured Servers LLC		Secured Servers LLC	Arizona	85281
+https://user-uuid-2188652440aa480b9b789bc8ba5a2882:5db3017a5b01@184.164.133.43:22222	AS20454 SECURED SERVERS LLC	Tempe	United States	Secured Servers LLC		Secured Servers LLC	Arizona	85281
 ```

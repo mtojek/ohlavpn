@@ -3,6 +3,7 @@ package vpn
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -26,14 +27,14 @@ type Client struct {
 
 // Tunnels stores information about proxy servers
 type Tunnels struct {
-	Login    string
-	Password string
-
 	Servers []TunnelSettings
 }
 
 // TunnelSettings stores tunnel related settings.
 type TunnelSettings struct {
+	Login    string
+	Password string
+
 	Host  string
 	Port  string
 	Proto string
@@ -41,7 +42,16 @@ type TunnelSettings struct {
 
 // String method returns string representative of the struct.
 func (ts *TunnelSettings) String() string {
-	return fmt.Sprintf("%s\t%s:%s", ts.Proto, ts.Host, ts.Port)
+	return fmt.Sprintf("%s://%s:%s@%s:%s", ts.Proto, ts.Login, ts.Password, ts.Host, ts.Port)
+}
+
+// URL method returns URI representative of the struct.
+func (ts *TunnelSettings) URL() *url.URL {
+	proxyURL, err := url.Parse(ts.String())
+	if err != nil {
+		log.Fatalf("URL must be parsed: %v", err)
+	}
+	return proxyURL
 }
 
 type initializeResponse struct {
@@ -100,10 +110,11 @@ func (c *Client) FindTunnels(countryCode string, limit int) (*Tunnels, error) {
 		return nil, err
 	}
 
+	login := fmt.Sprintf("user-uuid-%s", c.uuid)
+	password := r.AgentKey
+
 	tunnels := &Tunnels{
-		Login:    fmt.Sprintf("user-uuid-%s", c.uuid),
-		Password: r.AgentKey,
-		Servers:  []TunnelSettings{},
+		Servers: []TunnelSettings{},
 	}
 
 	proxyEndpoints, ok := r.Ztun[countryCode]
@@ -127,6 +138,9 @@ func (c *Client) FindTunnels(countryCode string, limit int) (*Tunnels, error) {
 			}
 
 			tunnels.Servers = append(tunnels.Servers, TunnelSettings{
+				Login:    login,
+				Password: password,
+
 				Host:  ipAddress,
 				Port:  port,
 				Proto: protocol,

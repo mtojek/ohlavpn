@@ -13,13 +13,14 @@ func main() {
 	var countryCode string
 	var limit int
 	var geoIP bool
+	var verify bool
 
 	flag.StringVar(&countryCode, "c", "us", "country code")
 	flag.IntVar(&limit, "l", 5, "proxy server limit")
 	flag.BoolVar(&geoIP, "g", false, "check GeoIP data")
+	flag.BoolVar(&verify, "v", false, "verify proxy connectivity")
 	flag.Parse()
 
-	ipAPIClient := ipapi.NewClient()
 	vpnClient := vpn.NewClient()
 	err := vpnClient.Initialize()
 	if err != nil {
@@ -35,12 +36,15 @@ func main() {
 		log.Fatal("No proxy servers found")
 	}
 
-	fmt.Printf("Login: %s, Password: %s\n\n", tunnels.Login, tunnels.Password)
-
 	for _, tunnel := range tunnels.Servers {
 		fmt.Print(tunnel.String())
 
 		if geoIP {
+			ipAPIClient := ipapi.NewClient()
+			if verify {
+				ipAPIClient = ipAPIClient.WithProxy(tunnel.URL())
+			}
+
 			geoIPData, err := ipAPIClient.GeoIP(tunnel.Host)
 			if err != nil {
 				fmt.Printf("\terror checking GeoIP data: %v", err)
